@@ -74,6 +74,7 @@ class Calculator
                     }
                     break;               
             }
+            
         }
     }
 
