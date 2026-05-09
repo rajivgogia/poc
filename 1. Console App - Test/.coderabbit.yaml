@@ -1,77 +1,31 @@
 # CodeRabbit Configuration
 # This file configures CodeRabbit behavior for code reviews
 
-# Review settings
 reviews:
-  # Enable/disable the review
-  enabled: true
+  # Auto review settings for drafts
+  auto_review:
+    drafts: true
   
-  # Request review on draft PRs
-  request_review_on_draft: true
-  
-  # Show review status
-  show_status: true
-  
-  # Auto approve certain changes
-  auto_approve: false
+  # Review status visibility
+  review_status: true
 
-# Rules for failed reviews
-rules:
-  # Fail review on critical issues
-  fail_on_critical: true
+  message_type: error
   
-  # Fail review on high severity issues
-  fail_on_high_severity: true
+  # Commit status checks configuration
+  commit_status: true
+  fail_commit_status: true
   
-  # Report the review status
-  report_status: true
+  # Comment configuration
+  high_level_summary: true
+  changed_files_summary: true
+  collapse_walkthrough: false
+  
+  # Pre-merge checks for failed reviews
+  pre_merge_checks:
+      enabled: true
+      
+      mode: error
 
-# Comments and feedback
-comments:
-  # Enable inline comments
-  enable_inline_comments: true
-  
-  # Show summary comment
+  # Output and summary settings
   show_summary: true
-  
-  # Comment on review completion
-  comment_on_complete: true
-
-# Status checks
-status_checks:
-  # Enable status checks
-  enabled: true
-  
-  # Set status context name
-  context: "CodeRabbit"
-  
-  # Mark as failed if issues found
-  fail_on_issues: true
-  
-  # Show success status
-  show_success: true
-
-# Code quality standards
-quality:
-  # Fail if quality score below threshold
-  min_quality_score: 60
-  
-  # Check code complexity
-  check_complexity: true
-  
-  # Check for security issues
-  check_security: true
-
-# Output configuration
-output:
-  # Display review results in PR
-  display_results: true
-  
-  # Show failed checks
   show_failures: true
-  
-  # Show passed checks
-  show_passes: false
-  
-  # Summary detail level (concise, detailed)
-  summary_level: "detailed"
