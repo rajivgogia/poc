@@ -196,8 +196,10 @@ chat:
     linear:
       usage: auto
 knowledge_base:
-  code_guidelines:
+  opt_out: false
+  web_search:
     enabled: true
+  code_guidelines:
     filePatterns:
       - "**/*.cs"
       - "**/*.csproj"
@@ -212,13 +214,7 @@ knowledge_base:
       - "Return proper HTTP results with Results.Ok, Results.NotFound, Results.Problem, etc."
       - "Enable Swagger/OpenAPI in development only."
       - "Centralize error handling with UseExceptionHandler and avoid try/catch in every endpoint."
-      - "Use IConfiguration.GetSection(...).Bind(...) for typed settings instead of hard-coded values."edge_base:
-  opt_out: false
-  web_search:
-    enabled: true
-  code_guidelines:
-    enabled: true
-    filePatterns: []
+      - "Use IConfiguration.GetSection(...).Bind(...) for typed settings instead of hard-coded values."
   learnings:
     scope: auto
   issues:
