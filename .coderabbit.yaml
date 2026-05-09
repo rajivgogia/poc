@@ -163,6 +163,7 @@ knowledge_base:
   web_search:
     enabled: true
   code_guidelines:
+    enabled: true
     filePatterns:
       - "**/*.cs"
       - "**/*.csproj"
