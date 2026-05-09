@@ -72,9 +72,21 @@ class Calculator
                         result = Divide(num1, num2);
                         Console.WriteLine($"\nResult: {num1} / {num2} = {result}");
                     }
-                    break;               
+                    break; 
+                    case "4":
+                    if (num2 == 0)
+                    {
+                        Console.WriteLine("\nError: Cannot divide by zero.");
+                        validOperation = false;
+                    }
+                    else
+                    {
+                        result = Divide(num1, num2);
+                        Console.WriteLine($"\nResult: {num1} / {num2} = {result}");
+                    }
+                    break;                
             }
-            
+
         }
     }
 
