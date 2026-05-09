@@ -1,0 +1,15 @@
+D:\Study\Learning 2026\poc\1. Console App - Test\bin\Debug\net8.0\ConsoleApp.exe
+D:\Study\Learning 2026\poc\1. Console App - Test\bin\Debug\net8.0\ConsoleApp.deps.json
+D:\Study\Learning 2026\poc\1. Console App - Test\bin\Debug\net8.0\ConsoleApp.runtimeconfig.json
+D:\Study\Learning 2026\poc\1. Console App - Test\bin\Debug\net8.0\ConsoleApp.dll
+D:\Study\Learning 2026\poc\1. Console App - Test\bin\Debug\net8.0\ConsoleApp.pdb
+D:\Study\Learning 2026\poc\1. Console App - Test\obj\Debug\net8.0\ConsoleApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Study\Learning 2026\poc\1. Console App - Test\obj\Debug\net8.0\ConsoleApp.AssemblyInfoInputs.cache
+D:\Study\Learning 2026\poc\1. Console App - Test\obj\Debug\net8.0\ConsoleApp.AssemblyInfo.cs
+D:\Study\Learning 2026\poc\1. Console App - Test\obj\Debug\net8.0\ConsoleApp.csproj.CoreCompileInputs.cache
+D:\Study\Learning 2026\poc\1. Console App - Test\obj\Debug\net8.0\ConsoleApp.sourcelink.json
+D:\Study\Learning 2026\poc\1. Console App - Test\obj\Debug\net8.0\ConsoleApp.dll
+D:\Study\Learning 2026\poc\1. Console App - Test\obj\Debug\net8.0\refint\ConsoleApp.dll
+D:\Study\Learning 2026\poc\1. Console App - Test\obj\Debug\net8.0\ConsoleApp.pdb
+D:\Study\Learning 2026\poc\1. Console App - Test\obj\Debug\net8.0\ConsoleApp.genruntimeconfig.cache
+D:\Study\Learning 2026\poc\1. Console App - Test\obj\Debug\net8.0\ref\ConsoleApp.dll
