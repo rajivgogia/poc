@@ -1,0 +1,27 @@
+{
+  "$schema": "https://claude.com/schemas/plugin-marketplace.json",
+  "name": "rgcodelab",
+  "owner": {
+    "name": "Rajiv Gogia",
+    "email": "er.rajivgogia7@gmail.com"
+  },
+  "description": "RG Codelab — a collection of Claude Code skills and plugins by Rajiv Gogia.",
+  "version": "1.0.0",
+  "metadata": {
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "dev-team-lead",
+      "source": "./plugins/dev-team-lead",
+      "displayName": "Dev Team Lead",
+      "description": "Guides architecture decisions, task breakdown, sprint planning, and code review from a tech lead's perspective.",
+      "version": "1.0.0",
+      "author": { "name": "Rajiv Gogia" },
+      "homepage": "https://github.com/rajivgogia/poc",
+      "repository": "https://github.com/rajivgogia/poc",
+      "license": "MIT",
+      "keywords": ["leadership", "architecture", "planning", "review"]
+    }
+  ]
+}
