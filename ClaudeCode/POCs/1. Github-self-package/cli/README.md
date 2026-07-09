@@ -1,34 +1,33 @@
 # rgcodelab CLI
 
-A small npm CLI that installs RG Codelab Claude Code skills/plugins. It's a thin convenience wrapper over the official `claude plugin` commands — the marketplace repo is the source of truth.
+A small npm CLI that fetches RG Codelab Claude Code **skills as plain folders** — no git history, no plugin install, no marketplace. It shallow-clones the source repo, copies only the requested skill into your current project's `.claude/skills/<name>/`, then deletes the clone.
 
 ## Usage
 
 ```bash
-npx rgcodelab install-skill dev-team-lead --claude
+npx rgcodelab install-skill dev-team-lead
 npx rgcodelab list
 npx rgcodelab help
 ```
 
-`--claude` is an optional convention flag (ignored — this CLI always targets Claude Code).
+`--claude` is still accepted as an optional no-op flag for backward compatibility (it does nothing now).
 
-## What it does
+## What `install-skill <name>` does
 
-`install-skill <name>` runs:
+1. Shallow-clones `rajivgogia/poc` (master) to a temp dir — efficient: blobless + sparse, falling back to a plain shallow clone on older git.
+2. Copies only `<SKILLS_BASE>/<name>/skills/<name>/` (the `SKILL.md` + supporting files) into `./.claude/skills/<name>/`.
+3. Deletes the temp clone.
 
-1. `claude plugin marketplace add rajivgogia/poc` — registers/refreshes the marketplace.
-2. `claude plugin install <name>@rgcodelab` — installs the plugin to user scope.
-
-Then run `/reload-plugins` (or restart Claude Code) and invoke with `/<name>:<name>`.
+The result is plain files in your project — **no `.git`, no plugin install, no marketplace registration**. Then run `/reload` (or restart Claude Code) and invoke with `/<name>`.
 
 ## Requirements
 
 - Node.js >= 18
-- `claude` (Claude Code CLI) on your `PATH`
+- `git` on your `PATH`
 
 ## Configuration
 
-If you rename or move the marketplace repo, update `MARKETPLACE_REPO` and `MARKETPLACE_NAME` in `bin/rgcodelab.js`.
+If you rename/move the repo or the skills folder, update `REPO`, `BRANCH`, and `SKILLS_BASE` in `bin/rgcodelab.js`.
 
 ## Publish
 
