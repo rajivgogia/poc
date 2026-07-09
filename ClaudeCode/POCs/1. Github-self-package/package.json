@@ -1,6 +1,6 @@
 {
   "name": "rgcodelabs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Download Claude Code skills from the rgcodelabs collection with a single command — no git clone required.",
   "keywords": [
     "claude",
