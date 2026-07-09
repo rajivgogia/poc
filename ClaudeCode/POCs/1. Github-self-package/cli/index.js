@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-// rgcodelab — install Claude Code skills from the rgcodelab collection.
+// rgcodelabs — install Claude Code skills from the rgcodelabs collection.
 //
-//   npx rgcodelab install-skill dev-team-lead            → ./dev-team-lead/   (just files)
-//   npx rgcodelab install-skill dev-team-lead --claude   → ~/.claude/skills/ (opt-in)
+//   npx rgcodelabs install-skill dev-team-lead            → ./dev-team-lead/   (just files)
+//   npx rgcodelabs install-skill dev-team-lead --claude   → ~/.claude/skills/ (opt-in)
 //
 // By default the skill files are copied into the current working directory so
 // they stay as plain files on disk — they are NOT installed into Claude. Use
@@ -209,7 +209,7 @@ function main(argv) {
   }
 
   if (command !== 'install-skill') {
-    fail(`unknown command '${command}'. Try: rgcodelab help`);
+    fail(`unknown command '${command}'. Try: rgcodelabs help`);
   }
 
   const opts = { target: null, force: false };
@@ -217,7 +217,7 @@ function main(argv) {
   for (const a of rest) {
     if (a === '--claude') opts.target = 'claude';
     else if (a === '--force' || a === '-f') opts.force = true;
-    else if (a.startsWith('--')) fail(`unknown option '${a}'. Try: rgcodelab help`);
+    else if (a.startsWith('--')) fail(`unknown option '${a}'. Try: rgcodelabs help`);
     else if (a === '-h' || a === '--help') {
       console.log(HELP);
       return;
