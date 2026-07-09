@@ -1,7 +1,7 @@
 {
   "name": "rgcodelab",
-  "version": "1.0.0",
-  "description": "CLI to install RG Codelab Claude Code skills and plugins.",
+  "version": "1.0.1",
+  "description": "CLI to fetch RG Codelab Claude Code skills as plain folders (no git history).",
   "license": "MIT",
   "author": "Rajiv Gogia <er.rajivgogia7@gmail.com>",
   "homepage": "https://github.com/rajivgogia/poc",
