@@ -1,0 +1,7 @@
+# Never publish dev-only skills or non-artifacts.
+node_modules
+.git
+.gitignore
+*.log
+.DS_Store
+Claude-Code-Masterclass

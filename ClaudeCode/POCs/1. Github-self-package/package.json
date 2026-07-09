@@ -1,0 +1,38 @@
+{
+  "name": "rgcodelabs",
+  "version": "1.0.6",
+  "description": "Download Claude Code skills from the rgcodelabs collection with a single command — no git clone required.",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "skill",
+    "skills",
+    "cli",
+    "rgcodelabs",
+    "ai",
+    "agent"
+  ],
+  "license": "MIT",
+  "author": "Rajiv Gogia <er.rajivgogia7@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajivgogia/poc.git",
+    "directory": "ClaudeCode/POCs/1. Github-self-package"
+  },
+  "homepage": "https://github.com/rajivgogia/poc/tree/master/ClaudeCode/POCs/1.%20Github-self-package",
+  "bin": {
+    "rgcodelabs": "cli/index.js"
+  },
+  "files": [
+    "cli",
+    ".claude/skills/dev-team-lead",
+    ".claude/skills/maths-operations",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
