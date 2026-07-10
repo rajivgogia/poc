@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-// rgcodelabs — install Claude Code skills from the rgcodelabs collection.
+// rgcodelab — install Claude Code skills from the rgcodelab collection.
 //
-//   npx rgcodelabs install-skill dev-team-lead            → ./dev-team-lead/   (just files)
-//   npx rgcodelabs install-skill dev-team-lead --claude   → ~/.claude/skills/ (opt-in)
+//   npx rgcodelab install-skill dev-team-lead            → ./dev-team-lead/   (just files)
+//   npx rgcodelab install-skill dev-team-lead --claude   → ~/.claude/skills/ (opt-in)
 //
 // By default the skill files are copied into the current working directory so
 // they stay as plain files on disk — they are NOT installed into Claude. Use
@@ -22,21 +22,21 @@ const os = require('os');
 const PKG_ROOT = path.join(__dirname, '..');
 const SKILLS_SRC_DIR = path.join(PKG_ROOT, '.claude', 'skills');
 
-const HELP = `rgcodelabs — install Claude Code skills from the rgcodelabs collection.
+const HELP = `rgcodelab — install Claude Code skills from the rgcodelab collection.
 
 Usage:
-  rgcodelabs install-skill <skill> [--claude] [--force]   Download a skill
-  rgcodelabs list                                          List skills bundled in this package
-  rgcodelabs help                                          Show this help
+  rgcodelab install-skill <skill> [--claude] [--force]   Download a skill
+  rgcodelab list                                          List skills bundled in this package
+  rgcodelab help                                          Show this help
 
 By default the skill is copied into the current directory as ./<skill>/ — it is
 NOT installed into Claude. Pass --claude to install it into ~/.claude/skills,
 where Claude Code auto-discovers it.
 
 Examples:
-  npx rgcodelabs install-skill dev-team-lead                 → ./dev-team-lead/
-  npx rgcodelabs install-skill dev-team-lead --claude        → ~/.claude/skills/dev-team-lead/
-  npx rgcodelabs install-skill dev-team-lead --force         overwrite ./dev-team-lead/
+  npx rgcodelab install-skill dev-team-lead                 → ./dev-team-lead/
+  npx rgcodelab install-skill dev-team-lead --claude        → ~/.claude/skills/dev-team-lead/
+  npx rgcodelab install-skill dev-team-lead --force         overwrite ./dev-team-lead/
 
 Options:
   --claude   Install into Claude Code (~/.claude/skills) instead of the current dir.
@@ -97,7 +97,7 @@ function targetDir(flag) {
 }
 
 function installSkill(skill, opts) {
-  if (!skill) fail('missing skill name. Try: rgcodelabs list');
+  if (!skill) fail('missing skill name. Try: rgcodelab list');
 
   const src = path.join(SKILLS_SRC_DIR, skill);
   if (!fs.existsSync(src) || !fs.statSync(src).isDirectory()) {
@@ -154,7 +154,7 @@ function listSkills() {
     console.log('No skills are bundled in this package.');
     return;
   }
-  console.log('Bundled skills (install with: rgcodelabs install-skill <name>):\n');
+  console.log('Bundled skills (install with: rgcodelab install-skill <name>):\n');
   for (const name of skills) {
     const skillMd = path.join(SKILLS_SRC_DIR, name, 'SKILL.md');
     let desc = '';
@@ -209,7 +209,7 @@ function main(argv) {
   }
 
   if (command !== 'install-skill') {
-    fail(`unknown command '${command}'. Try: rgcodelabs help`);
+    fail(`unknown command '${command}'. Try: rgcodelab help`);
   }
 
   const opts = { target: null, force: false };
@@ -217,7 +217,7 @@ function main(argv) {
   for (const a of rest) {
     if (a === '--claude') opts.target = 'claude';
     else if (a === '--force' || a === '-f') opts.force = true;
-    else if (a.startsWith('--')) fail(`unknown option '${a}'. Try: rgcodelabs help`);
+    else if (a.startsWith('--')) fail(`unknown option '${a}'. Try: rgcodelab help`);
     else if (a === '-h' || a === '--help') {
       console.log(HELP);
       return;

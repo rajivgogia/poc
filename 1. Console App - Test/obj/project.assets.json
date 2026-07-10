@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Study\\Learning 2026\\poc\\1. Console App - Test\\ConsoleApp.csproj",
+      "projectUniqueName": "D:\\Study\\Github Projects\\poc\\1. Console App - Test\\ConsoleApp.csproj",
       "projectName": "ConsoleApp",
-      "projectPath": "D:\\Study\\Learning 2026\\poc\\1. Console App - Test\\ConsoleApp.csproj",
+      "projectPath": "D:\\Study\\Github Projects\\poc\\1. Console App - Test\\ConsoleApp.csproj",
       "packagesPath": "C:\\Users\\Rajiv\\.nuget\\packages\\",
-      "outputPath": "D:\\Study\\Learning 2026\\poc\\1. Console App - Test\\obj\\",
+      "outputPath": "D:\\Study\\Github Projects\\poc\\1. Console App - Test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

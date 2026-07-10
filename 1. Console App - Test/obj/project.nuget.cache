@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WRjNEIkOyqA=",
+  "dgSpecHash": "aHTkjKSSPrs=",
   "success": true,
-  "projectFilePath": "D:\\Study\\Learning 2026\\poc\\1. Console App - Test\\ConsoleApp.csproj",
+  "projectFilePath": "D:\\Study\\Github Projects\\poc\\1. Console App - Test\\ConsoleApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rajiv\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.24\\microsoft.netcore.app.ref.8.0.24.nupkg.sha512",
     "C:\\Users\\Rajiv\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.24\\microsoft.windowsdesktop.app.ref.8.0.24.nupkg.sha512",

@@ -1,14 +1,14 @@
 {
-  "name": "rgcodelabs",
-  "version": "1.0.6",
-  "description": "Download Claude Code skills from the rgcodelabs collection with a single command — no git clone required.",
+  "name": "rgcodelab",
+  "version": "1.0.0",
+  "description": "Download Claude Code skills from the rgcodelab collection with a single command — no git clone required.",
   "keywords": [
     "claude",
     "claude-code",
     "skill",
     "skills",
     "cli",
-    "rgcodelabs",
+    "rgcodelab",
     "ai",
     "agent"
   ],
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/rajivgogia/poc/tree/master/ClaudeCode/POCs/1.%20Github-self-package",
   "bin": {
-    "rgcodelabs": "cli/index.js"
+    "rgcodelab": "cli/index.js"
   },
   "files": [
     "cli",
