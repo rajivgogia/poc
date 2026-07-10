@@ -84,7 +84,8 @@ class Calculator
                         result = Divide(num1, num2);
                         Console.WriteLine($"\nResult: {num1} / {num2} = {result}");
                     }
-                    break;                
+                    break;    
+                                
             }
 
         }
