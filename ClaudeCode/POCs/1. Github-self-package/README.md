@@ -1,31 +1,31 @@
-# rgcodelab
+# rgcodetoolkit
 
-Install Claude Code skills from the rgcodelab collection with one command — **no git clone, no git history**. `npx` fetches the package, the CLI copies the skill into your local `~/.claude/skills` directory.
+Install Claude Code skills from the rgcodetoolkit collection with one command — **no git clone, no git history**. `npx` fetches the package, the CLI copies the skill into your local `~/.claude/skills` directory.
 
 ## Usage
 
 Install a skill into Claude Code:
 
 ```bash
-npx rgcodelab install-skill dev-team-lead --claude
+npx rgcodetoolkit install-skill dev-team-lead --claude
 ```
 
 Overwrite an existing install:
 
 ```bash
-npx rgcodelab install-skill dev-team-lead --claude --force
+npx rgcodetoolkit install-skill dev-team-lead --claude --force
 ```
 
 List skills bundled in the package:
 
 ```bash
-npx rgcodelab list
+npx rgcodetoolkit list
 ```
 
 Help:
 
 ```bash
-npx rgcodelab help
+npx rgcodetoolkit help
 ```
 
 ## What it does
