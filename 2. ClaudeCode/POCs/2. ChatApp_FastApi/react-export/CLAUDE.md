@@ -1,6 +1,8 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project Overview
+
+React 18 + Vite chat frontend connecting to a FastAPI backend. Supports three tabs (Home, Chat, Travel) with shared theming and persistent chat backgrounds.
 
 ## Commands
 
@@ -8,41 +10,42 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm install          # install dependencies
 npm run dev          # start dev server (Vite, hot reload)
 npm run build        # production build
-npm run preview      # preview production build locally
+npm run preview      # preview production build
 npm run test         # run tests once (vitest)
 npm run test:watch   # run tests in watch mode
 ```
 
 ## Architecture
 
-This is a React 18 + Vite chat frontend that connects to a FastAPI backend.
-
-**Data flow:**
-- `ChatContext.jsx` holds all state via `useReducer` and exposes actions (`createNewSession`, `sendChatMessage`, `deleteSession`, etc.) through `ChatProvider`
-- `useChat.js` is a thin re-export of `useChatContext` — all components consume state/actions through this hook
-- `services/api.js` handles all HTTP calls; the base URL is set via `VITE_API_BASE` env var (defaults to `''`, meaning same-origin)
+**State management:**
+- `ChatContext.jsx` — all chat state via `useReducer`; exposes `createNewSession`, `sendChatMessage`, `deleteSession`, etc. via `ChatProvider`
+- `TravelContext.jsx` — mirrors the same pattern for the Travel tab
+- `useChat.js` — thin re-export of `useChatContext`; all components consume state through this hook
+- `services/api.js` — all HTTP calls; base URL via `VITE_API_BASE` env var (defaults to `''`, same-origin)
 
 **Key files:**
-- `src/App.jsx` — root component; owns `currentTheme` state, applies CSS custom properties, renders `<Sidebar>` + `<ChatWindow>`
-- `src/data.js` — `THEMES` object (four themes: `Slate (light)`, `Carbon (dark)`, `Paper (warm)`, `Bright mode`) with all color tokens
+- `src/App.jsx` — root; owns `currentTheme`, `activeTab`, `chatBg` state; `chatBg` persisted to `localStorage`
+- `src/data.js` — `THEMES` (5 themes) and `CHAT_BACKGROUNDS` (12 options)
 - `src/icons.jsx` — all inline SVG icons as named exports
+- `src/components/Chat/ChatWindow.jsx` — chat pane with wallpaper picker and theme cycler
 
 ## Theming
 
-All colors are CSS custom properties (`--bg`, `--panel`, `--panel2`, `--border`, `--text`, `--sub`, `--accent`, `--on-accent`, `--accent-soft`, `--bubble`, `--accent-gradient`). They are set inline on the root `<div>` in `App.jsx` from the active `THEMES` entry. Components use `var(--token)` throughout — never hardcode colors.
+Colors are CSS custom properties (`--bg`, `--panel`, `--text`, `--accent`, `--bubble`, etc.) set inline on the root `<div>` in `App.jsx`. Always use `var(--token)` — never hardcode colors.
 
-The active theme name is passed as `currentTheme` prop to both `<Sidebar>` and `<ChatWindow>`. `ChatWindow` accepts an `onThemeChange` callback to cycle through themes from the header button.
+`Aurora Mesh` (default theme) has `auroraGlow: true`, which renders a decorative gradient overlay.
 
 ## Backend API
 
-Expected endpoints (FastAPI):
-- `POST /chat/start` → `{ session_id }` — create a new chat session
-- `POST /chat` with `{ session_id, message }` → `{ history }` — send a message and receive full updated history
-- `GET /chat/:sessionId/history` → history array
-- `DELETE /chat/:sessionId` — delete a session (best-effort; local state is updated optimistically)
+Set `VITE_API_BASE=http://localhost:8000` in `.env`.
 
-Set `VITE_API_BASE` in a `.env` file to point at the FastAPI server (e.g. `VITE_API_BASE=http://localhost:8000`).
+| Method | Path | Description |
+|--------|------|-------------|
+| `POST` | `/chat/start` | Create session → `{ session_id }` |
+| `POST` | `/chat` | Send message with `{ session_id, message }` → `{ history }` |
+| `GET` | `/chat/:sessionId/history` | Get history array |
+| `DELETE` | `/chat/:sessionId` | Delete session (optimistic local update) |
 
-## Session naming
+## Session Naming
 
-The first user message in a session is used as the session name (truncated to 50 chars). This rename is dispatched client-side via `SESSION_RENAMED` before the API call completes.
+First user message becomes the session name (truncated to 50 chars), dispatched client-side via `SESSION_RENAMED` before the API call completes.

@@ -1,57 +1,63 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Project Overview
 
-This is a FastAPI service that wraps Ollama's `/api/chat` endpoint to provide session-based multi-turn conversations. The server maintains conversation history in memory, keyed by session IDs.
+FastAPI service wrapping Ollama Cloud's `/api/chat` endpoint. Maintains in-memory session-based conversation history keyed by session IDs. Includes a travel planning session type with a pre-seeded system prompt.
 
-## Development Commands
+## Setup
 
-### Installation
 ```bash
 pip install -r requirements.txt
 ```
 
-### Running the Server
-```bash
-uvicorn main:app --reload --port 8000
+Create a `.env` file:
+```
+OLLAMA_API_KEY=your_api_key_here
+OLLAMA_BASE_URL=https://api.ollama.com   # optional default
+DEFAULT_MODEL=glm-4.7:cloud              # optional default
 ```
 
-The API documentation will be available at http://127.0.0.1:8000/docs
+`OLLAMA_API_KEY` is required — server raises `ValueError` at startup if missing.
 
-### Prerequisites
-- Ollama must be running and reachable (automatic on Windows after running `ollama run <model>`)
-- Default Ollama URL: `https://ollama.com`
-- Default model: `glm-4.7:cloud`
+```bash
+uvicorn main:app --reload --port 8000
+# Docs: http://127.0.0.1:8000/docs
+```
 
 ## Architecture
 
-### Core Components
-- **Single-file structure**: All code lives in `main.py`
-- **In-memory session storage**: `conversations: Dict[str, List[dict]]` maps session IDs to message history
-- **Session lifecycle**: Start session → Send messages (with history) → Get/delete history
-- **Message format**: Standard OpenAI-style `{"role": "...", "content": "..."}` messages
+**Single file:** All logic lives in `main.py`.
 
-### API Endpoints
-- `POST /chat/start` - Creates a new session with optional system prompt
-- `POST /chat` - Sends a message to an existing session (maintains history, uses DEFAULT_MODEL from env)
-- `GET /chat/{session_id}/history` - Retrieves conversation history
-- `DELETE /chat/{session_id}` - Deletes a session
-- `GET /models` - Proxies to Ollama's model listing endpoint
+**Session storage:** `conversations: Dict[str, List[dict]]` maps session IDs to message history. Not persistent across restarts.
 
-### External Integration
-- Uses `httpx.AsyncClient` for async HTTP requests to Ollama
-- Timeout set to 120s for chat requests (model can be slow)
-- No streaming support in current implementation (stream=False)
+**Message format:** OpenAI-style `{"role": "...", "content": "..."}`.
 
-### Data Flow
-1. Client calls `/chat/start` → receives `session_id`
-2. Client sends messages to `/chat` with `session_id`
-3. Server appends user message to history, calls Ollama with full history, appends assistant response
-4. Response includes both the reply and full history
+**CORS:** Enabled for all origins (`*`).
 
-### Notes
-- Session storage is NOT persistent across server restarts (swap for Redis/DB if needed)
-- All chat requests use the DEFAULT_MODEL environment variable (defaults to "glm-4.7:cloud")
-- Currently uses Ollama's non-streaming mode for simplicity
+## API Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `POST` | `/chat/start` | Create generic session (optional system prompt) |
+| `POST` | `/travel/start` | Create travel session with built-in system prompt |
+| `POST` | `/chat` | Send message to a session (maintains history) |
+| `GET` | `/chat/{session_id}/history` | Get conversation history |
+| `DELETE` | `/chat/{session_id}` | Delete a session |
+| `GET` | `/models` | List available Ollama models |
+
+## Travel Planner
+
+`TRAVEL_PLANNER_SYSTEM_PROMPT` drives a four-phase flow:
+1. Collect trip details (source, destination, dates)
+2. Interview user (style, budget, interests, accommodation, dietary/mobility, group type)
+3. Clarify only if answers contradict
+4. Generate itinerary in fixed markdown template with real place names
+
+Travel sessions use the same `/chat` endpoint as generic sessions.
+
+## External Integration
+
+- `httpx.AsyncClient` for async requests to `https://api.ollama.com`
+- Auth: `Authorization: Bearer <OLLAMA_API_KEY>`
+- Timeouts: 120s for chat, 10s for model listing
+- No streaming (`stream: false`)

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { ChatMessage } from './ChatMessage.jsx';
 import { LoadingIndicator } from '../common/LoadingIndicator.jsx';
 
-export function ChatMessages({ history, isSending }) {
+export function ChatMessages({ history, isSending, backgroundStyle }) {
   const scrollRef = useRef(null);
   const visible = history.filter((m) => m.role !== 'system');
 
@@ -22,6 +22,8 @@ export function ChatMessages({ history, isSending }) {
         flexDirection: 'column',
         gap: 4,
         minHeight: 0,
+        transition: 'background .3s, background-color .3s',
+        ...backgroundStyle,
       }}
     >
       {visible.map((msg, i) => (

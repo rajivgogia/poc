@@ -5,10 +5,19 @@ import { Sidebar } from './components/Sidebar/Sidebar.jsx';
 import { ChatWindow } from './components/Chat/ChatWindow.jsx';
 import { TabBar } from './components/common/TabBar.jsx';
 import { TravelProvider } from './context/TravelContext.jsx';
+import { HomePage } from './components/Home/HomePage.jsx';
 
-export default function App({ theme = 'Slate (light)' }) {
+export default function App({ theme = 'Aurora Mesh' }) {
   const [currentTheme, setCurrentTheme] = useState(theme);
   const [activeTab, setActiveTab] = useState('chat');
+  const [chatBg, setChatBg] = useState(() => {
+    try { return localStorage.getItem('chat_bg') || 'default'; } catch { return 'default'; }
+  });
+
+  function handleChatBgChange(id) {
+    setChatBg(id);
+    try { localStorage.setItem('chat_bg', id); } catch {}
+  }
   const t = THEMES[currentTheme] || THEMES['Slate (light)'];
 
   const vars = {
@@ -30,30 +39,39 @@ export default function App({ theme = 'Slate (light)' }) {
           background: 'var(--bg)',
           color: 'var(--text)',
           fontFamily: "'Public Sans', sans-serif",
+          position: 'relative',
         }}
       >
-        <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
+        {t.auroraGlow && (
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '45%',
+              background: 'linear-gradient(180deg, rgba(0,200,150,0.10) 0%, rgba(0,136,255,0.07) 45%, transparent 100%)',
+              filter: 'blur(64px)',
+              pointerEvents: 'none',
+              zIndex: 0,
+            }}
+          />
+        )}
 
-        <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
+        <div style={{ position: 'relative', zIndex: 1, flexShrink: 0 }}>
+          <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
+        </div>
+
+        <div style={{ display: 'flex', flex: 1, minHeight: 0, position: 'relative', zIndex: 1 }}>
           {activeTab === 'home' && (
-            <main
-              style={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--sub)',
-                fontSize: 15,
-              }}
-            >
-              Home dashboard coming soon
-            </main>
+            <HomePage onNavigate={setActiveTab} />
           )}
 
           {activeTab === 'chat' && (
             <>
               <Sidebar currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
-              <ChatWindow currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
+              <ChatWindow currentTheme={currentTheme} onThemeChange={setCurrentTheme} chatBg={chatBg} onChatBgChange={handleChatBgChange} />
             </>
           )}
 
@@ -65,7 +83,7 @@ export default function App({ theme = 'Slate (light)' }) {
                 title="Voyager"
                 newLabel="New Trip"
               />
-              <ChatWindow currentTheme={currentTheme} onThemeChange={setCurrentTheme} newLabel="New Trip" />
+              <ChatWindow currentTheme={currentTheme} onThemeChange={setCurrentTheme} newLabel="New Trip" chatBg={chatBg} onChatBgChange={handleChatBgChange} />
             </TravelProvider>
           )}
         </div>
