@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+ENV/
+
+# FastAPI / uvicorn
+*.log
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vite build output
+react-export/dist/
+react-export/.vite/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Claude Code local settings (keep .claude/ but ignore local overrides)
+.claude/settings.local.json
