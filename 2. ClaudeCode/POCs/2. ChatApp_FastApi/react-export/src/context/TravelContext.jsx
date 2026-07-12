@@ -1,9 +1,8 @@
-import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
+import { ChatContext } from './ChatContext.jsx';
 import * as api from '../services/api.js';
 
-export const ChatContext = createContext(null);
-
-const STORAGE_KEY = 'chat_state';
+const STORAGE_KEY = 'travel_state';
 
 function loadState() {
   try {
@@ -99,7 +98,10 @@ function reducer(state, action) {
   }
 }
 
-export function ChatProvider({ children }) {
+// Provides to the same ChatContext so all existing components (Sidebar, ChatWindow, etc.)
+// work unchanged — sessions and histories are fully isolated because this is a separate
+// useReducer instance that only lives while the Travel tab is mounted.
+export function TravelProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, undefined, initialState);
   const sessionCount = useRef(state.sessions.length);
 
@@ -112,16 +114,19 @@ export function ChatProvider({ children }) {
 
   async function createNewSession() {
     try {
-      const data = await api.createSession();
+      const data = await api.createTravelSession();
       sessionCount.current += 1;
       const session = {
         id: data.session_id,
-        name: `New Chat #${sessionCount.current}`,
+        name: `New Trip #${sessionCount.current}`,
         createdAt: Date.now(),
       };
       dispatch({ type: 'SESSION_CREATED', payload: { session } });
     } catch (err) {
-      dispatch({ type: 'ERROR_SET', payload: { message: `Failed to create session: ${err.message}`, retryAction: createNewSession } });
+      dispatch({
+        type: 'ERROR_SET',
+        payload: { message: `Failed to create trip: ${err.message}`, retryAction: createNewSession },
+      });
     }
   }
 
@@ -166,7 +171,7 @@ export function ChatProvider({ children }) {
     try {
       await api.deleteSession(sessionId);
     } catch {
-      // Session is already removed from local state; backend cleanup is best-effort
+      // best-effort
     }
   }
 
@@ -179,10 +184,4 @@ export function ChatProvider({ children }) {
       {children}
     </ChatContext.Provider>
   );
-}
-
-export function useChatContext() {
-  const ctx = useContext(ChatContext);
-  if (!ctx) throw new Error('useChatContext must be used within ChatProvider');
-  return ctx;
 }

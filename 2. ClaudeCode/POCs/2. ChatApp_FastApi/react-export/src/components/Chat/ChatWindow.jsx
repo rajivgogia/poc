@@ -7,7 +7,7 @@ import { THEMES } from '../../data.js';
 
 const THEME_KEYS = Object.keys(THEMES);
 
-export function ChatWindow({ currentTheme, onThemeChange }) {
+export function ChatWindow({ currentTheme, onThemeChange, newLabel = 'New Chat' }) {
   const { state, clearError } = useChat();
   const { sessions, activeSessionId, histories, isSending, error } = state;
 
@@ -19,7 +19,7 @@ export function ChatWindow({ currentTheme, onThemeChange }) {
   if (!activeSessionId) {
     return (
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, minHeight: 0 }}>
-        <EmptyState />
+        <EmptyState newLabel={newLabel} />
       </main>
     );
   }

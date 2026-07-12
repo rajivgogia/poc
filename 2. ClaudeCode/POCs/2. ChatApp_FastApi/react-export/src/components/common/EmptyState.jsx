@@ -1,7 +1,7 @@
 import { IconChat } from '../../icons.jsx';
 import { useChat } from '../../hooks/useChat.js';
 
-export function EmptyState() {
+export function EmptyState({ newLabel = 'New Chat' }) {
   const { createNewSession } = useChat();
 
   return (
@@ -23,7 +23,7 @@ export function EmptyState() {
           Start a new conversation
         </p>
         <p style={{ margin: '6px 0 0', fontSize: 14, color: 'var(--sub)' }}>
-          Click &ldquo;New Chat&rdquo; to begin
+          Click &ldquo;{newLabel}&rdquo; to begin
         </p>
       </div>
       <button
@@ -40,7 +40,7 @@ export function EmptyState() {
           cursor: 'pointer',
         }}
       >
-        New Chat
+        {newLabel}
       </button>
     </div>
   );

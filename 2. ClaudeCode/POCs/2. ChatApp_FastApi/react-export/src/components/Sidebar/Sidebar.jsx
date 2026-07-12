@@ -3,7 +3,7 @@ import { useChat } from '../../hooks/useChat.js';
 import { SessionList } from './SessionList.jsx';
 import { THEMES } from '../../data.js';
 
-export function Sidebar({ currentTheme, onThemeChange }) {
+export function Sidebar({ currentTheme, onThemeChange, title = 'AI Chat', newLabel = 'New Chat' }) {
   const { createNewSession } = useChat();
 
   return (
@@ -36,11 +36,11 @@ export function Sidebar({ currentTheme, onThemeChange }) {
             letterSpacing: '-0.01em',
           }}
         >
-          AI Chat
+          {title}
         </h1>
         <button
           onClick={createNewSession}
-          title="New Chat"
+          title={newLabel}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -56,7 +56,7 @@ export function Sidebar({ currentTheme, onThemeChange }) {
           }}
         >
           <IconPlus />
-          New Chat
+          {newLabel}
         </button>
       </div>
 
