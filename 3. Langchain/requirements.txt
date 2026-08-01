@@ -1,0 +1,8 @@
+langchain
+langchain-ollama
+langchain_openai
+langchain-anthropic
+python-dotenv
+
+
+# .\venv\Scripts\Activate.ps1

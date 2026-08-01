@@ -65,7 +65,7 @@ export default function App({ theme = 'Aurora Mesh' }) {
 
         <div style={{ display: 'flex', flex: 1, minHeight: 0, position: 'relative', zIndex: 1 }}>
           {activeTab === 'home' && (
-            <HomePage onNavigate={setActiveTab} />
+            <HomePage onNavigate={setActiveTab} currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
           )}
 
           {activeTab === 'chat' && (

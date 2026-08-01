@@ -1,4 +1,5 @@
 import { IconChat, IconMap, IconSettings } from '../../icons.jsx';
+import { THEMES } from '../../data.js';
 
 const s = {
   // Layout
@@ -109,6 +110,33 @@ const s = {
     cursor: 'pointer',
   },
 
+  // Theme picker
+  themeSection: { marginTop: 32 },
+  themeSectionTitle: {
+    fontFamily: "'Space Grotesk', sans-serif",
+    fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.35)',
+    letterSpacing: '1.2px', textTransform: 'uppercase',
+    marginBottom: 12,
+  },
+  themeRow: { display: 'flex', flexWrap: 'wrap', gap: 10 },
+  themeChip: {
+    display: 'flex', alignItems: 'center', gap: 8,
+    padding: '8px 16px', borderRadius: 10, cursor: 'pointer',
+    border: '1.5px solid rgba(255,255,255,0.08)',
+    background: 'rgba(255,255,255,0.04)',
+    fontFamily: "'Space Grotesk', sans-serif",
+    fontSize: 13, fontWeight: 600,
+    transition: 'border-color 0.15s, background 0.15s',
+  },
+  themeChipActive: {
+    border: '1.5px solid rgba(0,200,150,0.55)',
+    background: 'rgba(0,200,150,0.08)',
+  },
+  themeSwatch: {
+    width: 14, height: 14, borderRadius: '50%',
+    flexShrink: 0,
+  },
+
   // Stats row
   statsRow: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 16, marginTop: 16 },
   stat: {
@@ -129,7 +157,7 @@ const s = {
   },
 };
 
-export function HomePage({ onNavigate }) {
+export function HomePage({ onNavigate, currentTheme, onThemeChange }) {
   return (
     <main style={s.page}>
       <div style={s.body}>
@@ -198,13 +226,35 @@ export function HomePage({ onNavigate }) {
 
         </div>
 
+        {/* Theme picker */}
+        <div style={s.themeSection}>
+          <div style={s.themeSectionTitle}>App Theme</div>
+          <div style={s.themeRow}>
+            {Object.entries(THEMES).map(([name, t]) => (
+              <button
+                key={name}
+                style={{
+                  ...s.themeChip,
+                  ...(currentTheme === name ? s.themeChipActive : {}),
+                  color: currentTheme === name ? '#00c896' : 'rgba(255,255,255,0.55)',
+                }}
+                onClick={() => onThemeChange?.(name)}
+              >
+                <span style={{ ...s.themeSwatch, background: t.accent }} />
+                {name}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Stats row */}
         <div style={s.statsRow}>
           {[
             { num: 'Local', label: 'Models via Ollama' },
             { num: '∞', label: 'Parallel sessions' },
             { num: '0 ms', label: 'Cold-start latency' },
-            { num: '4', label: 'Built-in themes' },
+            { num: '5', label: 'Built-in themes' },
+            { num: '24', label: 'Chat backgrounds' },
           ].map(({ num, label }) => (
             <div key={label} style={s.stat}>
               <div style={s.statNum}>{num}</div>
